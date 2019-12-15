@@ -25,6 +25,8 @@
     "test:api:cov": "cd api && jest --coverage",
     "test:api:debug": "cd api && node --inspect-brk -r tsconfig-paths/register -r ts-node/register node_modules/.bin/jest --runInBand",
     "test:api:e2e": "cd api && jest --config ./test/jest-e2e.json",
+    "lint:all": "npm run lint:ui && npm run lint:api",
+    "test:all": "npm run test:api:cov && npm run test:api:e2e",
     "build:all": "npm run build:ui:prod && npm run build:api",
     "start": "node dist/main"
   },
