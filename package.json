@@ -15,7 +15,7 @@
     "build:all": "npm run build:ui && npm run build:universal && npm run build:api",
     "build:ui": "ng build --stats-json",
     "build:universal": "exitzero ng run ui:server",
-    "build:api": "ng run api:build",
+    "build:api": "exitzero ng run api:build",
     "build:types": "concurrently -k \"npm run start\" \"wait-on http-get://localhost:3333/ && npm run graphql-codegen\"",
     "graphql-codegen": "graphql-codegen --config codegen.yml",
     "test": "ng test",

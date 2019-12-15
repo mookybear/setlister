@@ -14,11 +14,12 @@ after_deploy:
 deploy:
   provider: elasticbeanstalk
   access_key_id:
-    secure: "AKIAR5VDGODKUSJ6PBF7"
+    secure: $ACCESSKEYID
   secret_access_key:
-    secure: "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"
+    secure: $SECRETACCESSKEY
   region: "us-east-1"
   app: "setlister"
   env: "Setlister-env"
+  bucket_name: "elasticbeanstalk-us-east-1-132412502229"
   zip-file: app.zip
   skip_cleanup: true
