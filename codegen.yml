@@ -1,6 +1,0 @@
-overwrite: true
-schema: "http://localhost:3333/graphql"
-generates:
-  apps/ui/src/app/model/generated/graphql.model.ts:
-    plugins:
-      - "typescript"

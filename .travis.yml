@@ -3,9 +3,6 @@ node_js:
   - 10.14.1
 install: npm ci
 script: 
-  - npm run lint 
-  - npm run test 
-  - npm run build:all
 before_deploy:
   - rm -rf node_modules
   - zip -r --exclude=\*.git\* app.zip .
