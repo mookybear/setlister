@@ -1,0 +1,24 @@
+{
+  "npmScope": "setlister-workspace",
+  "implicitDependencies": {
+    "angular.json": "*",
+    "package.json": "*",
+    "tsconfig.json": "*",
+    "tslint.json": "*",
+    "nx.json": "*"
+  },
+  "projects": {
+    "ui-e2e": {
+      "tags": []
+    },
+    "ui": {
+      "tags": []
+    },
+    "apps-api": {
+      "tags": []
+    },
+    "api": {
+      "tags": []
+    }
+  }
+}
