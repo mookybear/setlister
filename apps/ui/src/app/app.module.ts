@@ -2,7 +2,6 @@ import { BrowserModule, BrowserTransferStateModule, makeStateKey, TransferState 
 import { NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { HttpClientModule } from '@angular/common/http';
-import { InfiniteScrollModule } from 'ngx-infinite-scroll';
 import { ApolloModule, Apollo } from "apollo-angular";
 import { HttpLinkModule, HttpLink, HttpLinkHandler } from "apollo-angular-link-http";
 import { InMemoryCache, NormalizedCacheObject } from "apollo-cache-inmemory";
@@ -23,8 +22,7 @@ const STATE_KEY = makeStateKey<any>('apollo.state');
     BrowserTransferStateModule,
     HttpClientModule,
     HttpLinkModule,
-    ApolloModule,
-    InfiniteScrollModule,
+    ApolloModule
   ],
   providers: [PlatformService],
   bootstrap: [AppComponent]
