@@ -13,7 +13,7 @@
     "dev": "ng serve",
     "start": "node ./dist/apps/api/main.js",
     "build:all": "npm run build:ui && npm run build:universal && npm run build:api",
-    "build:ui": "ng build --stats-json",
+    "build:ui": "ng build",
     "build:universal": "exitzero ng run ui:server",
     "build:api": "exitzero ng run api:build",
     "build:types": "concurrently -k \"npm run start\" \"wait-on http-get://localhost:3333/ && npm run graphql-codegen\"",

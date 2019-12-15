@@ -8,7 +8,7 @@ script:
   - npm run build:all
 before_deploy:
   - rm -rf node_modules
-  - zip -r --exclude=\*.git\* app.zip
+  - zip -r --exclude=\*.git\* app.zip .
 after_deploy:
   - rm app.zip
 deploy:
