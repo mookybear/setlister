@@ -5,5 +5,5 @@ export enum Mode {
   Lydian = 'lydian',
   Mixolydian = 'mixolydian',
   Aeolian = 'aeolian',
-  Locrian = 'locrian'
+  Locrian = 'locrian',
 }

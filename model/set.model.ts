@@ -1,9 +1,9 @@
-import { ModifiableItem } from "./item.model";
-import { SetItem } from "./set-item.model";
+import { IItem } from './item.model';
 
-export interface Set extends ModifiableItem {
-  name: string;
-  description: string;
-  order: SetItem[];
-  tags: string[];
+export interface ISet extends IItem {
+  bandId?: string;
+  name?: string;
+  description?: string;
+  songs?: string[];
+  tags?: string[];
 }

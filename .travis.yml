@@ -2,10 +2,7 @@ language: node_js
 node_js:
   - 10.17.0
 install: npm ci
-script: 
-  - npm run lint:all
-  - npm run test:all
-  - npm run build:all
+script: npm run ci
 before_deploy:
   - rm -rf node_modules
   - zip -r --exclude=\*.git\* app.zip .

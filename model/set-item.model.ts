@@ -1,12 +1,12 @@
-import { Key } from "./enums/key.enum";
-import { Mode } from "./enums/mode.enum";
-import { Member } from "./member.model";
+import { Key } from './enums/key.enum';
+import { Mode } from './enums/mode.enum';
+import { IItem } from './item.model';
 
-export interface SetItem {
-  key?: Key;
-  mode?: Mode;
+export interface ISetItem extends IItem {
+  key?: Key | string;
+  mode?: Mode | string;
   tempo?: number;
   timeSignature?: [number, number];
-  leaders?: Member[];
-  tags?: string[];
+  leaders?: string[] | Set<string>;
+  tags?: string[] | Set<string>;
 }

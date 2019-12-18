@@ -1,11 +1,8 @@
-import { ModifiableItem } from "./item.model";
-import { Song } from "./song.model";
-import { Member } from "./member.model";
-import { Set } from "./set.model";
+import { IItem } from './item.model';
 
-export interface Band extends ModifiableItem {
-  name: string;
-  repertoire: Song[];
-  members: Member[];
-  sets: Set[];
+export interface IBand extends IItem {
+  name?: string;
+  songs?: string[] | Set<string>;
+  members?: string[] | Set<string>;
+  sets?: string[] | Set<string>;
 }

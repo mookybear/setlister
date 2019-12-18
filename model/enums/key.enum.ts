@@ -10,5 +10,5 @@ export enum Key {
   AFlat = 'Ab',
   A = 'A',
   BFlat = 'Bb',
-  B = 'B'
+  B = 'B',
 }

@@ -1,6 +1,5 @@
-import { ModifiableItem } from "./item.model";
-import { Band } from "./band.model";
+import { IItem } from './item.model';
 
-export interface User extends ModifiableItem {
-  bands: Band[]
+export interface IUser extends IItem {
+  bands?: string[] | Set<string>;
 }
