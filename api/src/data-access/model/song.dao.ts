@@ -12,8 +12,8 @@ export class SongDAO extends DAO implements ISong {
     mode?: Mode;
     tempo?: number;
     timeSignature?: [number, number];
-    leaders?: string[];
-    tags?: string[];
+    leaders?: Set<string>;
+    tags?: Set<string>;
 }
 
 Object.defineProperties(SongDAO.prototype, {
@@ -23,10 +23,9 @@ Object.defineProperties(SongDAO.prototype, {
     [DynamoDbSchema]: {
         value: {
             id: {
-                type: 'String',
-                keyType: 'HASH',
+                type: 'String', keyType: 'HASH',
             },
-            bandId: { type: 'String' },
+            bandId: { type: 'String', keyType: 'RANGE' },
             title: { type: 'String' },
             artist: { type: 'String' },
             key: { type: 'String' },

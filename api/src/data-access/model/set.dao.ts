@@ -6,8 +6,8 @@ export class SetDAO extends DAO implements ISet {
     bandId?: string;
     name?: string;
     description?: string;
-    songs?: string[];
-    tags?: string[];
+    songs?: string;
+    tags?: Set<string>;
 }
 
 Object.defineProperties(SetDAO.prototype, {
@@ -18,15 +18,12 @@ Object.defineProperties(SetDAO.prototype, {
         value: {
             id: {
                 type: 'String',
-                keyType: 'HASH'
+                keyType: 'HASH',
             },
-            bandId: {type: 'String'},
+            bandId: {type: 'String', keyType: 'RANGE'},
             name: {type: 'String'},
             description: {type: 'String'},
-            songs: {
-                type: 'Set',
-                memberType: 'String',
-            },
+            songs: { type: 'String' },
             tags: {
                 type: 'Set',
                 memberType: 'String',

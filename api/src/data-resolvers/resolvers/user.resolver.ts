@@ -4,7 +4,7 @@ import { User } from '../models/user';
 import { UserRepository } from 'src/data-access/repositories/user.repository';
 import { UserDAO } from 'src/data-access/model/user.dao';
 import { NewUserInput } from '../args/new-user';
-import { UpdatedUserInput } from '../args/updated-user.args';
+import { UpdatedUserInput } from '../args/updated-user';
 
 @Resolver((of: void) => User)
 export class UserResolver {
@@ -34,11 +34,10 @@ export class UserResolver {
 
   @Mutation(returns => User)
   async addUser(
-    @Args('newUser') newUser: NewUserInput,
+    @Args('user') newUser: NewUserInput,
   ): Promise<User> {
-    const user = new User();
+    const user: User = Object.assign(new User(), newUser);
     user.id = v4();
-    user.bands = newUser.bands;
     const inputDAO = this.toDAO(user);
     const outputDAO = await this.userRepo.put(inputDAO);
     return this.fromDAO(outputDAO);
@@ -53,9 +52,10 @@ export class UserResolver {
     return this.fromDAO(outputDAO);
   }
 
-  @Mutation(returns => Boolean)
-  async removeUser(@Args('id') id: string) {
-    return this.userRepo.delete(new UserDAO(id));
+  @Mutation(returns => User)
+  async removeUser(@Args('id') id: string): Promise<User> {
+    const removedUser = await this.userRepo.delete(new UserDAO(id));
+    return this.fromDAO(removedUser);
   }
 
 }

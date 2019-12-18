@@ -4,9 +4,9 @@ import { DAO } from './dao';
 
 export class BandDAO extends DAO implements IBand {
     name?: string;
-    songs?: string[];
-    members?: string[];
-    sets?: string[];
+    songs?: Set<string>;
+    members?: Set<string>;
+    sets?: Set<string>;
 }
 
 Object.defineProperties(BandDAO.prototype, {

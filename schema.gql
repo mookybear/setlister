@@ -3,10 +3,54 @@
 # !!!   DO NOT MODIFY THIS FILE BY YOURSELF   !!!
 # -----------------------------------------------
 
+type Band {
+  id: String!
+  name: String!
+  members: [String!]!
+  songs: [String!]!
+  sets: [String!]!
+}
+
 type Mutation {
-  addUser(newUser: NewUserInput!): User!
+  addUser(user: NewUserInput!): User!
   updateUser(user: UpdatedUserInput!): User!
-  removeUser(id: String!): Boolean!
+  removeUser(id: String!): User!
+  addSong(song: NewSongInput!): Song!
+  updateSong(song: UpdatedSongInput!): Song!
+  removeSong(bandId: String!, id: String!): Song!
+  addSetlist(setlist: NewSetInput!): Set!
+  updateSetlist(setlist: UpdatedSetInput!): Set!
+  removeSetlist(id: String!, bandId: String!): Set!
+  addBand(band: NewBandInput!): Band!
+  updateBand(band: UpdatedBandInput!): Band!
+  removeBand(id: String!): Band!
+}
+
+input NewBandInput {
+  name: String!
+  songs: [String!]!
+  sets: [String!]!
+  members: [String!]!
+}
+
+input NewSetInput {
+  bandId: String!
+  name: String!
+  description: String!
+  songs: [String!]!
+  tags: [String!]!
+}
+
+input NewSongInput {
+  bandId: String!
+  title: String!
+  artist: String!
+  key: String!
+  mode: String!
+  tempo: Float!
+  timeSignature: [Float!]!
+  leaders: [String!]!
+  tags: [String!]!
 }
 
 input NewUserInput {
@@ -15,6 +59,61 @@ input NewUserInput {
 
 type Query {
   user(id: String!): User!
+  song(bandId: String!, id: String!): Song!
+  setlist(bandId: String!, id: String!): Set!
+  band(id: String!): Band!
+}
+
+type Set {
+  id: String!
+  bandId: String!
+  name: String!
+  description: String!
+  songs: [String!]!
+  tags: [String!]!
+}
+
+type Song {
+  id: String!
+  bandId: String!
+  title: String!
+  artist: String!
+  key: String!
+  mode: String!
+  tempo: Float!
+  timeSignature: [Float!]!
+  leaders: [String!]!
+  tags: [String!]!
+}
+
+input UpdatedBandInput {
+  id: String!
+  name: String!
+  songs: [String!]!
+  sets: [String!]!
+  members: [String!]!
+}
+
+input UpdatedSetInput {
+  id: String!
+  bandId: String!
+  name: String!
+  description: String!
+  songs: [String!]!
+  tags: [String!]!
+}
+
+input UpdatedSongInput {
+  id: String!
+  bandId: String!
+  title: String!
+  artist: String!
+  key: String!
+  mode: String!
+  tempo: Float!
+  timeSignature: [Float!]!
+  tags: [String!]!
+  leaders: [String!]!
 }
 
 input UpdatedUserInput {

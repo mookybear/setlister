@@ -15,6 +15,6 @@ export class Band implements IBand {
   @Field(songs => [String!]!)
   songs: string[];
 
-  @Field(tags => [String!]!)
-  tags: string[];
+  @Field(sets => [String!]!)
+  sets: string[];
 }
