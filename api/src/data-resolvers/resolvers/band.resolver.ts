@@ -5,17 +5,12 @@ import { BandDAO } from 'src/data-access/model/band.dao';
 import { BandRepository } from 'src/data-access/repositories/band.repository';
 import { NewBandInput } from '../args/new-band';
 import { UpdatedBandInput } from '../args/updated-band';
+import { toSet } from './transformers';
 
 @Resolver((of: void) => Band)
 export class BandResolver {
 
   public constructor(private readonly bandRepo: BandRepository) {}
-
-  private toSet<T>(arr: T[]): Set<T> {
-    const band = new Set<T>();
-    arr.forEach(b => band.add(b));
-    return band;
-  }
 
   private fromDAO(dao: BandDAO): Band {
     const { songs, sets, members, ...partialBand } = dao;
@@ -31,9 +26,9 @@ export class BandResolver {
 
   private toDAO(band: Band): BandDAO {
     const { songs, sets, members, ...partialBand } = band;
-    const songsSet = this.toSet(band.songs);
-    const setsSet = this.toSet(band.sets);
-    const membersSet = this.toSet(band.members);
+    const songsSet = toSet(band.songs);
+    const setsSet = toSet(band.sets);
+    const membersSet = toSet(band.members);
     const dao: BandDAO = Object.assign(new BandDAO(partialBand.id), partialBand);
     dao.songs = songsSet;
     dao.sets = setsSet;

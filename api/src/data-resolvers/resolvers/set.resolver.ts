@@ -5,17 +5,12 @@ import { SetDAO } from 'src/data-access/model/set.dao';
 import { SetRepository } from 'src/data-access/repositories/set.repository';
 import { NewSetInput } from '../args/new-set';
 import { UpdatedSetInput } from '../args/updated-set';
+import { toSet } from './transformers';
 
 @Resolver((of: void) => Setlist)
 export class SetResolver {
 
   public constructor(private readonly setRepo: SetRepository) {}
-
-  private toSet<T>(arr: T[]): Set<T> {
-    const set = new Set<T>();
-    arr.forEach(b => set.add(b));
-    return set;
-  }
 
   private fromDAO(dao: SetDAO): Setlist {
     const { tags, ...partialSet } = dao;
@@ -28,7 +23,7 @@ export class SetResolver {
 
   private toDAO(set: Setlist): SetDAO {
     const { tags, ...partialSet } = set;
-    const tagsSet = this.toSet(set.tags);
+    const tagsSet = toSet(set.tags);
     const dao: SetDAO = Object.assign(new SetDAO(partialSet.id), partialSet);
     dao.songs = set.songs.join(',');
     dao.tags = tagsSet;

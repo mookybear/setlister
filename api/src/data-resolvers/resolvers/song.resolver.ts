@@ -5,17 +5,12 @@ import { SongDAO } from 'src/data-access/model/song.dao';
 import { SongRepository } from 'src/data-access/repositories/song.repository';
 import { NewSongInput } from '../args/new-song';
 import { UpdatedSongInput } from '../args/updated-song';
+import { toSet } from './transformers';
 
 @Resolver((of: void) => Song)
 export class SongResolver {
 
   public constructor(private readonly songRepo: SongRepository) {}
-
-  private toSet<T>(arr: T[]): Set<T> {
-    const set = new Set<T>();
-    arr.forEach(b => set.add(b));
-    return set;
-  }
 
   private fromDAO(dao: SongDAO): Song {
     const { leaders, tags, ...partialSong } = dao;
@@ -29,8 +24,8 @@ export class SongResolver {
 
   private toDAO(song: Song): SongDAO {
     const { leaders, tags, ...partialSong } = song;
-    const leadersSet = this.toSet(song.leaders);
-    const tagsSet = this.toSet(song.tags);
+    const leadersSet = toSet(song.leaders);
+    const tagsSet = toSet(song.tags);
     const dao: SongDAO = Object.assign(new SongDAO(partialSong.id), partialSong);
     dao.leaders = leadersSet;
     dao.tags = tagsSet;
