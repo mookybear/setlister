@@ -7,7 +7,7 @@ import { DataResolversModule } from './data-resolvers/data-resolvers.module';
 @Module({
   imports: [
     ServeStaticModule.forRoot({
-      rootPath: join(__dirname, 'ui'),
+      rootPath: join(__dirname, '../../ui'),
     }),
     DataResolversModule,
     GraphQLModule.forRoot({

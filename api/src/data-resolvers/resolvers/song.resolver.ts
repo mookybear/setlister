@@ -9,7 +9,6 @@ import { toSet } from './transformers';
 
 @Resolver((of: void) => Song)
 export class SongResolver {
-
   public constructor(private readonly songRepo: SongRepository) {}
 
   private fromDAO(dao: SongDAO): Song {
@@ -26,23 +25,37 @@ export class SongResolver {
     const { leaders, tags, ...partialSong } = song;
     const leadersSet = toSet(song.leaders);
     const tagsSet = toSet(song.tags);
-    const dao: SongDAO = Object.assign(new SongDAO(partialSong.id), partialSong);
+    const dao: SongDAO = Object.assign(
+      new SongDAO(partialSong.id),
+      partialSong,
+    );
     dao.leaders = leadersSet;
     dao.tags = tagsSet;
     return dao;
   }
 
   @Query(returns => Song)
-  public async song(@Args('id') id: string, @Args('bandId') bandId: string): Promise<Song> {
+  public async song(
+    @Args('id') id: string,
+    @Args('bandId') bandId: string,
+  ): Promise<Song> {
     const inputDAO = new SongDAO(id);
     inputDAO.bandId = bandId;
     const outputDAO = await this.songRepo.get(inputDAO);
     return this.fromDAO(outputDAO);
   }
 
+  @Query(returns => [Song])
+  public async songs(
+    @Args('bandId') bandId: string,
+  ): Promise<Song[]> {
+    const outputDAOs = await this.songRepo.getMultiple(SongDAO, { bandId });
+    const songs: Song[] = outputDAOs.map(d => this.fromDAO(d));
+    return songs;
+  }
+
   @Mutation(returns => Song)
-  async addSong(
-    @Args('song') newSong: NewSongInput): Promise<Song> {
+  async addSong(@Args('song') newSong: NewSongInput): Promise<Song> {
     const song: Song = Object.assign(new Song(), newSong);
     song.id = v4();
     const inputDAO = this.toDAO(song);
@@ -51,9 +64,7 @@ export class SongResolver {
   }
 
   @Mutation(returns => Song)
-  async updateSong(
-    @Args('song') song: UpdatedSongInput,
-  ): Promise<Song> {
+  async updateSong(@Args('song') song: UpdatedSongInput): Promise<Song> {
     const inputDAO = this.toDAO(song);
     const outputDAO = await this.songRepo.update(inputDAO);
     return this.fromDAO(outputDAO);
@@ -61,12 +72,12 @@ export class SongResolver {
 
   @Mutation(returns => Song)
   async removeSong(
-    @Args('id') id: string, @Args('bandId') bandId: string,
+    @Args('id') id: string,
+    @Args('bandId') bandId: string,
   ): Promise<Song> {
     const dao = new SongDAO(id);
     dao.bandId = bandId;
     const removedSong = await this.songRepo.delete(dao);
     return this.fromDAO(removedSong);
   }
-
 }

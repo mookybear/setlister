@@ -13,6 +13,10 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { environment } from 'src/environments/environment';
 import { HttpClientModule } from '@angular/common/http';
+import { BandService } from './services/band.service';
+import { UserService } from './services/user.service';
+import { SetService } from './services/set.service';
+import { SongService } from './services/song.service';
 
 @NgModule({
   declarations: [AppComponent],
@@ -24,7 +28,7 @@ import { HttpClientModule } from '@angular/common/http';
     HttpLinkModule,
     ApolloModule,
   ],
-  providers: [],
+  providers: [UserService, BandService, SetService, SongService],
   bootstrap: [AppComponent],
 })
 export class AppModule {

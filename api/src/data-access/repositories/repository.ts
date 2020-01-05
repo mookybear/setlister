@@ -1,6 +1,4 @@
-import {
-  DataMapper,
-} from '@aws/dynamodb-data-mapper';
+import { DataMapper } from '@aws/dynamodb-data-mapper';
 import DynamoDB = require('aws-sdk/clients/dynamodb');
 import { DAO } from '../model/dao';
 
@@ -17,6 +15,17 @@ export abstract class Repository<T extends DAO> {
 
   public get(dao: T): Promise<T> {
     return this.mapper.get(dao);
+  }
+
+  public async getMultiple(daoClass: new () => T, partitionKey: {[key: string]: string}): Promise<T[]> {
+    const keyName = Object.keys(partitionKey)[0];
+    const keyCondition = { [keyName]: partitionKey[keyName] };
+    const iterator: AsyncIterableIterator<T> = this.mapper.query(daoClass, keyCondition);
+    const items: T[] = [];
+    for await (const item of iterator) {
+      items.push(item);
+    }
+    return items;
   }
 
   public put(dao: T): Promise<T> {

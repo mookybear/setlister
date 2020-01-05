@@ -1,5 +1,18 @@
 <router-outlet></router-outlet>
+<p *ngIf="loading">Loading...</p>
 
-<ul *ngFor="let band of bands">
-  <li>{{band.name}}</li>
-</ul>
+<div *ngIf="!loading">
+  <h1>{{band.name}}</h1>
+  <ul *ngFor="let setlist of setlists">
+    <span *ngIf="setlist">
+      <h2>{{setlist.name}}</h2>
+      <p>{{setlist.description}}</p>
+    </span>
+    <li *ngFor="let songId of setlist.songs">
+      <span *ngIf="songId">
+        {{findSongById(songId).title}}
+      </span>
+    </li>
+  </ul>
+</div>
+

@@ -8,7 +8,6 @@ import { UpdatedUserInput } from '../args/updated-user';
 
 @Resolver((of: void) => User)
 export class UserResolver {
-
   public constructor(private readonly userRepo: UserRepository) {}
 
   private fromDAO(dao: UserDAO): User {
@@ -33,9 +32,7 @@ export class UserResolver {
   }
 
   @Mutation(returns => User)
-  async addUser(
-    @Args('user') newUser: NewUserInput,
-  ): Promise<User> {
+  async addUser(@Args('user') newUser: NewUserInput): Promise<User> {
     const user: User = Object.assign(new User(), newUser);
     user.id = v4();
     const inputDAO = this.toDAO(user);
@@ -44,9 +41,7 @@ export class UserResolver {
   }
 
   @Mutation(returns => User)
-  async updateUser(
-    @Args('user') user: UpdatedUserInput,
-  ): Promise<User> {
+  async updateUser(@Args('user') user: UpdatedUserInput): Promise<User> {
     const inputDAO = this.toDAO(user);
     const outputDAO = await this.userRepo.update(inputDAO);
     return this.fromDAO(outputDAO);
@@ -57,5 +52,4 @@ export class UserResolver {
     const removedUser = await this.userRepo.delete(new UserDAO(id));
     return this.fromDAO(removedUser);
   }
-
 }

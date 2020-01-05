@@ -4,9 +4,7 @@ import { BandDAO } from '../model/band.dao';
 
 @Injectable()
 export class BandRepository extends Repository<BandDAO> {
-
   public constructor() {
     super();
   }
-
 }

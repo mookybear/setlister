@@ -5,7 +5,6 @@ import { Mode } from '../../../../model/enums/mode.enum';
 
 @InputType()
 export class NewSongInput implements Partial<ISong> {
-
   @Field(type => String)
   bandId: string;
 

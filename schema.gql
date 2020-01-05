@@ -60,7 +60,9 @@ input NewUserInput {
 type Query {
   user(id: String!): User!
   song(bandId: String!, id: String!): Song!
+  songs(bandId: String!): [Song!]!
   setlist(bandId: String!, id: String!): Set!
+  setlists(bandId: String!): [Set!]!
   band(id: String!): Band!
 }
 
